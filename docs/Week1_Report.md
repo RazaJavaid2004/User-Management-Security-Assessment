@@ -571,9 +571,6 @@ This assessment identified **8 security vulnerabilities**, including **4 critica
 
 ---
 
-**Report Approved By:** Security Assessment Team
-**Date:** February 23, 2026
-**Version:** 1.0PS
 
 ## Appendix: References
 
