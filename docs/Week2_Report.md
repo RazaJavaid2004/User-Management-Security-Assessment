@@ -1,11 +1,13 @@
 # Week 2 – Implementing Security Measures
-**Application:** User Management System (Express + MongoDB)  
-**Prepared by:** Muhammad Raza  
-**Date:** February 2026  
+
+**Application:** User Management System (Express + MongoDB)
+**Prepared by:** Muhammad Raza
+**Date:** 24 February 2026
 
 ---
 
 ## 1. Executive Summary
+
 During the second week the team applied the corrective actions outlined in *Week 1 – Vulnerability Assessment Report*.  All critical findings (XSS, NoSQL injection, plaintext passwords, missing headers) were addressed by introducing input validation, password hashing, token‑based login and secure HTTP headers.  Each section below includes a brief implementation note, supporting screenshots pulled from the `docs/screenshots` directory, and a description of the security impact.  A remediation summary table and references follow.
 
 > 📌 **Note:** This is a follow‑up report; consult `Week1_Report.md` for the original risk analysis and proof‑of‑concept evidence.
@@ -17,7 +19,8 @@ During the second week the team applied the corrective actions outlined in *Week
 The following subsections correspond to the high‑risk findings reported in Week 1; each includes implementation details, proof‑of‑concept screenshots and impact statements.
 
 ### 2.1 Input Validation & Sanitization
-**Implementation**  
+
+**Implementation**
 The `validator` npm package was added and used on both signup and login routes to enforce sane formats and strip malicious content.
 
 ```javascript
@@ -52,13 +55,14 @@ if (!validator.isLength(password, { min: 8 })) {
 
 *Application returns an error message when the name field contains invalid characters or a script payload.*
 
-**Impact**  
+**Impact**
 Rejects malformed or malicious payloads before they reach the database, eliminating the stored‑XSS vector described in Week 1.
 
 ---
 
 ### 2.2 Password Hashing
-**Implementation**  
+
+**Implementation**
 `bcrypt` was introduced during user registration to hash passwords.  The hashing occurs prior to saving the document; the raw password is never stored.
 
 ```javascript
@@ -91,13 +95,14 @@ await user.save();
 
 *MongoDB shell output displaying the stored hashed password instead of plaintext.*
 
-**Impact**  
+**Impact**
 Mitigates credential exposure if the database is leaked; hashes are computationally expensive to reverse.
 
 ---
 
 ### 2.3 Token‑Based Authentication
-**Implementation**  
+
+**Implementation**
 Replaced the previous sessionless login with JWT tokens using `jsonwebtoken`.  Tokens are signed with a secret and expire after one hour.
 
 ```javascript
@@ -125,13 +130,14 @@ res.send({ message: 'Login successful', token });
 
 *HTTP response showing the issued token and success message.*
 
-**Impact**  
+**Impact**
 Enables stateless authentication, avoids storing credentials on the client and reduces session hijacking risk.
 
 ---
 
 ### 2.4 HTTP Security Headers
-**Implementation**  
+
+**Implementation**
 The `helmet` middleware was applied at the router level to inject several security headers by default, including `X-Frame-Options`, `X-Content-Type-Options` and `Strict-Transport-Security`.
 
 ```javascript
@@ -153,35 +159,34 @@ router.use(helmet());
 
 *Browser developer tools network panel listing the new headers (X-Frame-Options, X-Content-Type-Options, etc.).*
 
-**Impact**  
+**Impact**
 Provides defense‑in‑depth against clickjacking, MIME confusion and other header‑based attacks.
 
 ---
 
 ## 3. Remediation Summary
 
-| Area                         | Library / Tool      | Key Change                          | Screenshot(s)                                                                 |
-|-----------------------------|---------------------|-------------------------------------|-------------------------------------------------------------------------------|
-| Input validation            | validator           | Added format checks and sanitisation| validator_install, validator_code, validator_signup, validator_error         |
-| Password storage            | bcrypt              | Hash before save                    | bcrypt_install, bcrypt_code, bcrypt_browser1/2, bcrypt_mongo                |
-| Authentication              | jsonwebtoken        | JWT tokens with 1‑h expiry          | jwt_install, jwt_code, jwt_browser, jwt_token                               |
-| HTTP headers                | helmet              | Applied secure headers globally     | helmet_install, helmet_code, helmet_headers                                 |
+| Area             | Library / Tool | Key Change                           | Screenshot(s)                                                        |
+| ---------------- | -------------- | ------------------------------------ | -------------------------------------------------------------------- |
+| Input validation | validator      | Added format checks and sanitisation | validator_install, validator_code, validator_signup, validator_error |
+| Password storage | bcrypt         | Hash before save                     | bcrypt_install, bcrypt_code, bcrypt_browser1/2, bcrypt_mongo         |
+| Authentication   | jsonwebtoken   | JWT tokens with 1‑h expiry          | jwt_install, jwt_code, jwt_browser, jwt_token                        |
+| HTTP headers     | helmet         | Applied secure headers globally      | helmet_install, helmet_code, helmet_headers                          |
 
 ---
 
 ## 4. References
 
-- [validator npm package](https://www.npmjs.com/package/validator)  
-- [bcrypt documentation](https://www.npmjs.com/package/bcrypt)  
-- [JSON Web Tokens (jwt.io)](https://jwt.io/)  
-- [Helmet.js middleware](https://helmetjs.github.io/)  
-- OWASP Top 10 – 2021  
-- OWASP XSS Prevention Cheat Sheet  
-- Node.js Security Checklist
+- [validator npm package](https://www.npmjs.com/package/validator)
+- [bcrypt documentation](https://www.npmjs.com/package/bcrypt)
+- [JSON Web Tokens (jwt.io)](https://jwt.io/)
+- [Helmet.js middleware](https://helmetjs.github.io/)
+- [OWASP Top 10 – 2021](https://owasp.org/Top10/)
+- [OWASP XSS Prevention Cheat Sheet](https://cheatsheetseries.owasp.org/cheatsheets/Cross_Site_Scripting_Prevention_Cheat_Sheet.html)
+- [Node.js Security Checklist](https://blog.risingstack.com/node-js-security-checklist/)
 
 ---
 
 ## 5. Conclusion
 
 All high‑severity vulnerabilities identified in Week 1 have now been remediated. The application enforces proper input validation, stores passwords securely, uses stateless token authentication, and sets recommended HTTP headers.  Week 3 will focus on automated validation tests, implementing CSP, enforcing HTTPS, and verifying the fixes. Continual monitoring and security testing remain essential as development progresses.
-
