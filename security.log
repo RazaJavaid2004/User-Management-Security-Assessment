@@ -1,0 +1,5 @@
+{"level":"info","message":"Home route accessed","timestamp":"2026-02-24T18:53:37.335Z"}
+{"level":"info","message":"Home route accessed","timestamp":"2026-02-24T18:53:38.201Z"}
+{"level":"info","message":"Signup page accessed","timestamp":"2026-02-24T18:53:45.010Z"}
+{"level":"info","message":"Login page accessed","timestamp":"2026-02-24T18:53:48.359Z"}
+{"level":"warn","message":"Profile access denied: No token provided","timestamp":"2026-02-24T18:53:50.549Z"}
