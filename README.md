@@ -43,6 +43,9 @@ The following tools and technologies are utilized throughout the assessment:
 * **Browser Developer Tools** – Manual inspection and validation testing for client-side vulnerabilities including Cross-Site Scripting (XSS)
 * **MongoDB Shell** – Database inspection, schema analysis, and data integrity verification
 * **OWASP ZAP** – Automated vulnerability scanning and HTTP traffic analysis
+* **Nmap** – Port scanning and service enumeration for penetration testing.
+* **Winston** – Logging and monitoring of authentication attempts and errors.
+* **Helmet.js** – Secure HTTP headers to mitigate common attacks.
 
 ---
 
@@ -51,8 +54,8 @@ The following tools and technologies are utilized throughout the assessment:
 Detailed assessment findings and comprehensive documentation are maintained in the `docs/` directory. Supporting evidence and screenshots are located in `docs/screenshots/`.
 
 * [Week 1 – Basic Vulnerability Assessment](./docs/Week1_Report.md)
-* Week 2 – Advanced Vulnerability Testing (Pending)
-* Week 3 – Final Assessment & Remediation (Pending)
+* [Week 2 – Advanced Vulnerability Testing](./docs/Week2_Report.md)
+* [Week 3 – Final Assessment & Remediation](./docs/Week3_Report.md)
 
 ---
 
@@ -67,15 +70,31 @@ The initial security assessment identified the following critical and high-sever
 
 ---
 
-## Remediation Strategies
+## Week 2 Remediation Strategies
 
-The following security controls will be implemented during the remediation phase:
+Implemented security controls:
+* **Input Validation & Sanitization** – Using `validator` library.
+* **Secure Credential Management** – Password hashing with `bcrypt`.
+* **Security Headers** – Enforced with `Helmet.js`.
+* **Authentication** – JWT tokens for session management.
+* **Error Handling** – Suppressed verbose error messages.
 
-* **Input Validation and Sanitization** – Deploy `express-validator` middleware to enforce strict validation and sanitization of all user-supplied input
-* **Secure Credential Management** – Implement cryptographic hashing and salting using `bcrypt` for password storage prior to database persistence
-* **Security Headers** – Integrate `Helmet.js` middleware to enforce secure HTTP response headers and mitigate common attacks
-* **Access Control** – Enable database-level authentication and implement Role-Based Access Control (RBAC) at the application layer
-* **Error Handling** – Suppress verbose error messages and stack traces in production environments to prevent information disclosure
+---
+
+## Week 3 Validation & Reporting
+
+* **Penetration Testing:**  
+  - Nmap confirmed only port 8080 open with secure headers.  
+  - Browser-based attacks (XSS, NoSQL injection, weak password attempts) blocked successfully.  
+
+* **Logging & Monitoring:**  
+  - Winston logger integrated.  
+  - Logs written to console and `security.log`.  
+  - Records login attempts, errors, and suspicious activity.  
+
+* **Security Checklist:**  
+  - Documented best practices in `Security_Checklist.md`.  
+  - Covers validation, authentication, HTTPS, logging, and penetration testing.
 
 ---
 
@@ -83,12 +102,16 @@ The following security controls will be implemented during the remediation phase
 
 | Phase | Objectives |
 |-------|-----------|
-| **Week 1** | Basic vulnerability assessment including XSS, NoSQL injection, weak password storage, and security misconfigurations |
-| **Week 2** | Advanced vulnerability testing including CSRF, session management, and privilege escalation attacks |
-| **Week 3** | Final assessment, remediation implementation, validation, and secure deployment |
+| **Week 1** | Basic vulnerability assessment (XSS, NoSQL injection, weak password storage, misconfigurations) |
+| **Week 2** | Security fixes: input validation, password hashing, JWT authentication, Helmet headers |
+| **Week 3** | Penetration testing, logging setup, security checklist, final reporting |
 
 ---
 
 ## Summary
 
-This project provides a systematic approach to identifying and documenting common web application vulnerabilities through a combination of manual security testing and automated scanning methodologies. Subsequent phases will build upon these findings to strengthen the application's security posture and implement industry-standard security controls.
+This project demonstrates a **Full Security Lifecycle**:  
+**Identify → Fix → Validate → Document** ✅  
+
+By combining manual testing, automated scanning, and structured documentation, the User Management System has been hardened against common web application vulnerabilities.  
+The repository now includes **evidence-driven reports, structured logs, and a security checklist** for long-term maintainability and recruiter visibility.
