@@ -5,81 +5,89 @@ const validator = require('validator');
 const bcrypt = require('bcrypt');
 const jwt = require('jsonwebtoken');
 const helmet = require('helmet');
-const logger = require('../../utils/logger'); // import centralized logger
+const logger = require('../../utils/logger'); 
 
-// Apply Helmet globally for secure HTTP headers
-router.use(helmet());
+// --- WEEK 4 NEW IMPORTS ---
+const rateLimit = require('express-rate-limit');
+const cors = require('cors');
 
-// Home route
+// 1. Properly configure CORS to restrict unauthorized access 
+router.use(cors({
+  // UPDATED: Include both localhost and your network IP for testing
+  origin: ['http://localhost:8080', 'http://192.168.56.50:8080'], 
+  optionsSuccessStatus: 200
+}));
+
+// 2. Implement security headers with proper configuration
+
+router.use(helmet({
+  contentSecurityPolicy: {
+    directives: {
+      defaultSrc: ["'self'"],
+      scriptSrc: ["'self'"], 
+      objectSrc: ["'none'"],
+      upgradeInsecureRequests: [],
+    },
+  },
+  hsts: {
+    maxAge: 31536000, // 1 year
+    includeSubDomains: true,
+    preload: true
+  }
+}));
+
+// 3. Apply rate limiting to prevent brute-force attacks 
+const loginLimiter = rateLimit({
+  windowMs: 15 * 60 * 1000, // 15 minutes
+  max: 5, 
+  message: 'Too many login attempts, please try again later.',
+  handler: (req, res, next, options) => {
+      // Logic: Logs the block so Fail2Ban can catch the "Brute-force attempt blocked" string
+      logger.warn(`Brute-force attempt blocked for IP: ${req.ip}`);
+      res.status(options.statusCode).send(options.message);
+  }
+});
+
+// 4. Secure APIs using API keys
+
+const apiKeyAuth = (req, res, next) => {
+    const apiKey = req.header('x-api-key');
+    if (!apiKey || apiKey !== 'super-secure-devhub-key') {
+        // Logged for monitoring/auditing purposes
+        logger.warn(`Unauthorized API access attempt from IP: ${req.ip}`);
+        return res.status(401).send('Access denied. Invalid API key.');
+    }
+    next();
+};
+
+// --- ROUTES ---
+
 router.get('/', (req, res) => {
   logger.info('Home route accessed');
   res.render('index', { title: 'User Management System' });
 });
 
-// Signup page
-router.get('/signup', (req, res) => {
-  logger.info('Signup page accessed');
-  res.render('signup');
-});
-
-// Handle signup form with input validation + password hashing
-router.post('/signup', async (req, res) => {
-  const { name, email, password } = req.body;
-
-  try {
-    // Input validation
-    if (!validator.isEmail(email)) {
-      logger.warn(`Invalid signup email attempt: ${email}`);
-      return res.status(400).send('Invalid email format');
-    }
-    if (!validator.isAlphanumeric(name)) {
-      logger.warn(`Invalid signup name attempt: ${name}`);
-      return res.status(400).send('Invalid name');
-    }
-    if (!validator.isLength(password, { min: 8 })) {
-      logger.warn(`Weak password attempt for email: ${email}`);
-      return res.status(400).send('Password must be at least 8 characters');
-    }
-
-    // Password hashing
-    const hashedPassword = await bcrypt.hash(password, 10);
-
-    const user = new User({ name, email, password: hashedPassword });
-    await user.save();
-
-    logger.info(`New user registered: ${email}`);
-    res.send(`Signup successful: ${name}`);
-  } catch (err) {
-    logger.error(`Signup error: ${err.message}`);
-    res.status(400).send('Error: ' + err.message);
-  }
-});
-
-// Login page
-router.get('/login', (req, res) => {
-  logger.info('Login page accessed');
-  res.render('login');
-});
-
-// Handle login with JWT authentication
-router.post('/login', async (req, res) => {
+router.post('/login', loginLimiter, async (req, res) => {
   const { email, password } = req.body;
 
   try {
     logger.info(`Login attempt for email: ${email}`);
     const user = await User.findOne({ email });
+    
+    // Check if user exists
     if (!user) {
-      logger.warn(`Invalid login attempt for email: ${email}`);
+      logger.warn(`Invalid login attempt for email: ${email} from IP: ${req.ip}`);
       return res.status(401).send('Invalid credentials');
     }
 
+    // Check password
     const validPassword = await bcrypt.compare(password, user.password);
     if (!validPassword) {
-      logger.warn(`Invalid password attempt for email: ${email}`);
+      logger.warn(`Invalid password attempt for email: ${email} from IP: ${req.ip}`);
       return res.status(401).send('Invalid credentials');
     }
 
-    // Generate JWT token
+    // Generate JWT
     const token = jwt.sign({ id: user._id }, 'your-secret-key', { expiresIn: '1h' });
 
     logger.info(`Login successful for email: ${email}`);
@@ -90,29 +98,10 @@ router.post('/login', async (req, res) => {
   }
 });
 
-// Protected profile route (requires token)
-router.get('/profile', async (req, res) => {
-  const authHeader = req.headers['authorization'];
-  if (!authHeader) {
-    logger.warn('Profile access denied: No token provided');
-    return res.status(401).send('Access denied. No token provided.');
-  }
-
-  const token = authHeader.split(' ')[1];
-  try {
-    const decoded = jwt.verify(token, 'your-secret-key');
-    const user = await User.findById(decoded.id);
-    if (!user) {
-      logger.warn(`Profile access failed: User not found for token ID ${decoded.id}`);
-      return res.status(404).send('User not found');
-    }
-
-    logger.info(`Profile accessed for user: ${user.email}`);
-    res.render('profile', { user });
-  } catch (err) {
-    logger.error(`Invalid token: ${err.message}`);
-    res.status(401).send('Invalid token');
-  }
+// Secured API endpoint for Week 4 deliverables
+router.get('/api/secure-data', apiKeyAuth, (req, res) => {
+    logger.info('Secure API endpoint accessed successfully');
+    res.json({ data: 'Confidential Developer Hub Corporation Data' });
 });
 
 module.exports = router;
