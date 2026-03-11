@@ -1,0 +1,46 @@
+{"level":"info","message":"Login attempt for email: test@test.com","timestamp":"2026-03-11T03:48:16.178Z"}
+{"level":"warn","message":"Invalid login attempt for email: test@test.com from IP: ::1","timestamp":"2026-03-11T03:48:16.203Z"}
+{"level":"info","message":"Login attempt for email: test@test.com","timestamp":"2026-03-11T03:48:16.247Z"}
+{"level":"warn","message":"Invalid login attempt for email: test@test.com from IP: ::1","timestamp":"2026-03-11T03:48:16.257Z"}
+{"level":"info","message":"Login attempt for email: test@test.com","timestamp":"2026-03-11T03:48:16.301Z"}
+{"level":"warn","message":"Invalid login attempt for email: test@test.com from IP: ::1","timestamp":"2026-03-11T03:48:16.312Z"}
+{"level":"info","message":"Login attempt for email: test@test.com","timestamp":"2026-03-11T03:48:16.345Z"}
+{"level":"warn","message":"Invalid login attempt for email: test@test.com from IP: ::1","timestamp":"2026-03-11T03:48:16.356Z"}
+{"level":"info","message":"Login attempt for email: test@test.com","timestamp":"2026-03-11T03:48:16.388Z"}
+{"level":"warn","message":"Invalid login attempt for email: test@test.com from IP: ::1","timestamp":"2026-03-11T03:48:16.395Z"}
+{"level":"warn","message":"Brute-force attempt blocked for IP: ::1","timestamp":"2026-03-11T03:48:16.432Z"}
+{"level":"info","message":"Login attempt for email: test@test.com","timestamp":"2026-03-11T03:54:06.430Z"}
+{"level":"warn","message":"Invalid login attempt for email: test@test.com from IP: ::ffff:192.168.56.50","timestamp":"2026-03-11T03:54:06.464Z"}
+{"level":"info","message":"Login attempt for email: test@test.com","timestamp":"2026-03-11T03:54:06.528Z"}
+{"level":"warn","message":"Invalid login attempt for email: test@test.com from IP: ::ffff:192.168.56.50","timestamp":"2026-03-11T03:54:06.537Z"}
+{"level":"info","message":"Login attempt for email: test@test.com","timestamp":"2026-03-11T03:54:06.588Z"}
+{"level":"warn","message":"Invalid login attempt for email: test@test.com from IP: ::ffff:192.168.56.50","timestamp":"2026-03-11T03:54:06.594Z"}
+{"level":"info","message":"Login attempt for email: test@test.com","timestamp":"2026-03-11T03:54:06.648Z"}
+{"level":"warn","message":"Invalid login attempt for email: test@test.com from IP: ::ffff:192.168.56.50","timestamp":"2026-03-11T03:54:06.657Z"}
+{"level":"info","message":"Login attempt for email: test@test.com","timestamp":"2026-03-11T03:54:06.714Z"}
+{"level":"warn","message":"Invalid login attempt for email: test@test.com from IP: ::ffff:192.168.56.50","timestamp":"2026-03-11T03:54:06.724Z"}
+{"level":"warn","message":"Brute-force attempt blocked for IP: ::ffff:192.168.56.50","timestamp":"2026-03-11T03:54:06.784Z"}
+{"level":"info","message":"Login attempt for email: test@test.com","timestamp":"2026-03-11T03:57:44.577Z"}
+{"level":"warn","message":"Invalid login attempt for email: test@test.com from IP: ::ffff:192.168.56.50","timestamp":"2026-03-11T03:57:44.598Z"}
+{"level":"info","message":"Login attempt for email: test@test.com","timestamp":"2026-03-11T03:57:44.642Z"}
+{"level":"warn","message":"Invalid login attempt for email: test@test.com from IP: ::ffff:192.168.56.50","timestamp":"2026-03-11T03:57:44.648Z"}
+{"level":"info","message":"Login attempt for email: test@test.com","timestamp":"2026-03-11T03:57:44.680Z"}
+{"level":"warn","message":"Invalid login attempt for email: test@test.com from IP: ::ffff:192.168.56.50","timestamp":"2026-03-11T03:57:44.686Z"}
+{"level":"info","message":"Login attempt for email: test@test.com","timestamp":"2026-03-11T03:57:44.715Z"}
+{"level":"warn","message":"Invalid login attempt for email: test@test.com from IP: ::ffff:192.168.56.50","timestamp":"2026-03-11T03:57:44.727Z"}
+{"level":"info","message":"Login attempt for email: test@test.com","timestamp":"2026-03-11T03:57:44.770Z"}
+{"level":"warn","message":"Invalid login attempt for email: test@test.com from IP: ::ffff:192.168.56.50","timestamp":"2026-03-11T03:57:44.778Z"}
+{"level":"warn","message":"Brute-force attempt blocked for IP: ::ffff:192.168.56.50","timestamp":"2026-03-11T03:57:44.818Z"}
+{"level":"info","message":"Login attempt for email: test@test.com","timestamp":"2026-03-11T04:04:41.924Z"}
+{"level":"warn","message":"Invalid login attempt for email: test@test.com from IP: ::ffff:192.168.56.50","timestamp":"2026-03-11T04:04:41.947Z"}
+{"level":"info","message":"Login attempt for email: test@test.com","timestamp":"2026-03-11T04:04:42.009Z"}
+{"level":"warn","message":"Invalid login attempt for email: test@test.com from IP: ::ffff:192.168.56.50","timestamp":"2026-03-11T04:04:42.016Z"}
+{"level":"info","message":"Login attempt for email: test@test.com","timestamp":"2026-03-11T04:04:42.085Z"}
+{"level":"warn","message":"Invalid login attempt for email: test@test.com from IP: ::ffff:192.168.56.50","timestamp":"2026-03-11T04:04:42.096Z"}
+{"level":"info","message":"Login attempt for email: test@test.com","timestamp":"2026-03-11T04:04:42.142Z"}
+{"level":"warn","message":"Invalid login attempt for email: test@test.com from IP: ::ffff:192.168.56.50","timestamp":"2026-03-11T04:04:42.147Z"}
+{"level":"info","message":"Login attempt for email: test@test.com","timestamp":"2026-03-11T04:04:42.184Z"}
+{"level":"warn","message":"Invalid login attempt for email: test@test.com from IP: ::ffff:192.168.56.50","timestamp":"2026-03-11T04:04:42.191Z"}
+{"level":"warn","message":"Brute-force attempt blocked for IP: ::ffff:192.168.56.50","timestamp":"2026-03-11T04:04:42.232Z"}
+{"level":"warn","message":"Unauthorized API access attempt from IP: ::ffff:192.168.56.50","timestamp":"2026-03-11T04:11:24.527Z"}
+{"level":"info","message":"Secure API endpoint accessed successfully","timestamp":"2026-03-11T04:11:41.936Z"}
