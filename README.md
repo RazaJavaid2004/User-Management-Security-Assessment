@@ -36,18 +36,30 @@ Follow these steps to deploy the application in your local environment:
 
 ---
 
+
 ## Tools and Technologies
 
-The following tools and technologies are utilized throughout the assessment:
+The following tools and technologies were utilized throughout the multi-week security assessment:
 
-* **Browser Developer Tools** – Manual inspection and validation testing for client-side vulnerabilities including Cross-Site Scripting (XSS)
+* **Browser Developer Tools** – Manual inspection and validation testing for client-side vulnerabilities (XSS, CSP, etc.)
 * **MongoDB Shell** – Database inspection, schema analysis, and data integrity verification
 * **OWASP ZAP** – Automated vulnerability scanning and HTTP traffic analysis
-* **Nmap** – Port scanning and service enumeration for penetration testing.
-* **Winston** – Logging and monitoring of authentication attempts and errors.
-* **Helmet.js** – Secure HTTP headers to mitigate common attacks.
+* **Nmap** – Port scanning and service enumeration for penetration testing
+* **Burp Suite** – Manual injection, request tampering, and header analysis
+* **Winston** – Logging and monitoring of authentication attempts and errors
+* **Helmet.js** – Secure HTTP headers to mitigate common attacks
+* **Fail2Ban** – Intrusion detection and automated banning of brute-force attempts
+* **express-rate-limit** – API rate limiting to block brute-force and abuse
+* **CORS** – Restricting allowed origins for API endpoints
+* **lynis** – Host-based security auditing
+* **Trivy** – Container vulnerability scanning
+* **Docker** – Containerization and secure deployment
+* **bcrypt** – Secure password hashing
+* **JWT** – Token-based authentication
+* **validator, express-validator, mongo-sanitize, dompurify** – Input validation and sanitization
 
 ---
+
 
 ## Documentation and Reports
 
@@ -56,62 +68,81 @@ Detailed assessment findings and comprehensive documentation are maintained in t
 * [Week 1 – Basic Vulnerability Assessment](./docs/Week1_Report.md)
 * [Week 2 – Advanced Vulnerability Testing](./docs/Week2_Report.md)
 * [Week 3 – Final Assessment & Remediation](./docs/Week3_Report.md)
+* [Week 4 – Intrusion Detection, Logging & API Hardening](./docs/Week4_Report.md)
+* [Week 5 – XSS, NoSQL Injection & CSP Remediation](./docs/Week5_Report.md)
+* [Week 6 – Final Audit & Secure Deployment](./docs/Week6_Report.md)
 
 ---
 
-## Week 1 Findings
 
-The initial security assessment identified the following critical and high-severity vulnerabilities:
+## Weekly Findings & Remediation
 
-* **Cross-Site Scripting (XSS)** – Unsanitized input data is stored in the database and executed within the client browser environment
-* **NoSQL Injection** – Authentication mechanism can be bypassed through crafted JSON payloads
-* **Insecure Credential Storage** – User passwords are persisted in plaintext format within the MongoDB database
-* **Security Misconfiguration** – Missing Content Security Policy (CSP), absence of anti-clickjacking headers, sensitive server information disclosure via `X-Powered-By` header, and disabled MongoDB access controls
+### Week 1: Initial Assessment
+* **Findings:**
+   - Cross-Site Scripting (XSS) via unsanitized input
+   - NoSQL Injection in authentication
+   - Insecure credential storage (plaintext passwords)
+   - Security misconfigurations (missing CSP, anti-clickjacking, info disclosure)
 
----
+### Week 2: Remediation
+* **Actions:**
+   - Input validation & sanitization (`validator`)
+   - Password hashing with `bcrypt`
+   - JWT-based authentication
+   - Security headers with `Helmet.js`
+   - Error handling improvements
 
-## Week 2 Remediation Strategies
+### Week 3: Validation & Reporting
+* **Actions:**
+   - Penetration testing (Nmap, browser, API)
+   - Logging & monitoring with Winston
+   - Security checklist documentation
 
-Implemented security controls:
-* **Input Validation & Sanitization** – Using `validator` library.
-* **Secure Credential Management** – Password hashing with `bcrypt`.
-* **Security Headers** – Enforced with `Helmet.js`.
-* **Authentication** – JWT tokens for session management.
-* **Error Handling** – Suppressed verbose error messages.
+### Week 4: Intrusion Detection & API Hardening
+* **Actions:**
+   - Integrated Fail2Ban with Winston logs for brute-force detection and automated banning
+   - Hardened API with CORS, Helmet, and rate limiting
+   - Validated protections via manual endpoint testing
 
----
+### Week 5: XSS, NoSQL Injection & CSP Remediation
+* **Actions:**
+   - Fixed stored XSS by output encoding and input sanitization (`dompurify`)
+   - Prevented NoSQL injection with `mongo-sanitize` and strict validation
+   - Hardened CSP to block inline scripts and restrict sources
 
-## Week 3 Validation & Reporting
-
-* **Penetration Testing:**  
-  - Nmap confirmed only port 8080 open with secure headers.  
-  - Browser-based attacks (XSS, NoSQL injection, weak password attempts) blocked successfully.  
-
-* **Logging & Monitoring:**  
-  - Winston logger integrated.  
-  - Logs written to console and `security.log`.  
-  - Records login attempts, errors, and suspicious activity.  
-
-* **Security Checklist:**  
-  - Documented best practices in `Security_Checklist.md`.  
-  - Covers validation, authentication, HTTPS, logging, and penetration testing.
+### Week 6: Final Audit & Secure Deployment
+* **Actions:**
+   - Automated dependency and system vulnerability scans (`npm audit`, `lynis`)
+   - Containerized app with Docker (least privilege, non-root, minimal base)
+   - Container vulnerability scanning with Trivy
+   - Final penetration testing and verification of all mitigations
 
 ---
 
 ## Project Timeline
 
-| Phase | Objectives |
-|-------|-----------|
+| Phase      | Objectives                                                                 |
+|------------|----------------------------------------------------------------------------|
 | **Week 1** | Basic vulnerability assessment (XSS, NoSQL injection, weak password storage, misconfigurations) |
 | **Week 2** | Security fixes: input validation, password hashing, JWT authentication, Helmet headers |
-| **Week 3** | Penetration testing, logging setup, security checklist, final reporting |
+| **Week 3** | Penetration testing, logging setup, security checklist, final reporting     |
+| **Week 4** | Intrusion detection (Fail2Ban), API hardening (CORS, Helmet, rate limiting) |
+| **Week 5** | XSS, NoSQL injection, and CSP remediation                                  |
+| **Week 6** | Final audit, containerization, secure deployment, and production readiness  |
 
 ---
 
+
 ## Summary
 
-This project demonstrates a **Full Security Lifecycle**:  
-**Identify → Fix → Validate → Document** ✅  
+This project demonstrates a **Full Security Lifecycle**:
+**Identify → Fix → Validate → Document → Harden → Deploy** ✅
 
-By combining manual testing, automated scanning, and structured documentation, the User Management System has been hardened against common web application vulnerabilities.  
-The repository now includes **evidence-driven reports, structured logs, and a security checklist** for long-term maintainability and recruiter visibility.
+By combining manual and automated testing, layered security controls, and structured documentation, the User Management System has been hardened against a wide range of web application threats. The repository includes:
+
+- Evidence-driven reports for each phase (see `docs/`)
+- Structured logs and audit trails (Winston, Fail2Ban)
+- Security checklist and best practices (`Security_Checklist.md`)
+- Hardened, containerized deployment ready for production
+
+**Status:** Application is secured, audited, and production-ready.
