@@ -1,19 +1,127 @@
-# User Management System – Security Assessment
+<div align="center">
 
-## Overview
+# 🔐 User Management System – Security Assessment
 
-This repository contains a User Management System built with Express.js and MongoDB. It serves as the target application for a comprehensive multi-week vulnerability assessment project, where each phase focuses on identifying, documenting, and remediating distinct security flaws through systematic testing and analysis.
+[![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg?style=for-the-badge)](https://opensource.org/licenses/MIT)
+[![Stack](https://img.shields.io/badge/Stack-Node.js%20%7C%20Express%20%7C%20MongoDB-339933?style=for-the-badge&logo=node.js&logoColor=white)](#)
+[![Security](https://img.shields.io/badge/Focus-AppSec%20%26%20DevSecOps-E34F26?style=for-the-badge)](#)
+[![Status](https://img.shields.io/badge/Status-Audited%20%26%20Production--Ready-4EAA25?style=for-the-badge)](#)
+
+*End-to-end web application vulnerability assessment, defensive code remediation, intrusion detection integration, and hardened Docker containerization.*
+
+**Identify → Fix → Validate → Document → Harden → Deploy** ✅
+
+</div>
 
 ---
 
-## Setup Instructions
+## 📌 Overview
+This repository contains a **User Management System** built with **Express.js** and **MongoDB**. It serves as the target application for a comprehensive 6-week vulnerability assessment and DevSecOps hardening project. Each phase focuses on systematically identifying, exploiting, documenting, and remediating critical web application security flaws (OWASP Top 10) while building layered defenses for production readiness.
 
-Follow these steps to deploy the application in your local environment:
+---
+
+## 🏆 Certification
+Upon successfully completing the 6-week vulnerability assessment, defensive remediation, and secure deployment lifecycle, I was awarded the **Certificate of Completion**.
+
+<div align="center">
+  <table>
+    <tr>
+      <td align="center"><b>Certificate of Completion</b></td>
+    </tr>
+    <tr>
+      <td align="center">
+        <img src="awards/certificate%20of%20completion.jpg" alt="Certificate of Completion" width="600"/>
+      </td>
+    </tr>
+  </table>
+</div>
+
+---
+
+## 🗓️ 6-Week Security Lifecycle & Reports
+
+Detailed assessment findings, proof-of-concept exploits, and remediation steps are maintained in the `docs/` directory in both Markdown and PDF formats, supported by 65+ verification screenshots in `docs/screenshots/`.
+
+| Phase | Core Focus | Key Findings & Defensive Actions | Documentation |
+| :--- | :--- | :--- | :--- |
+| **Week 1** | **Basic Vulnerability Assessment** | Identified Cross-Site Scripting (XSS) via unsanitized input, NoSQL Injection in authentication, plaintext password storage, and missing security headers (CSP, anti-clickjacking, info disclosure). | [📄 MD](./docs/Week1_Report.md) \| [📕 PDF](./docs/Week1_Report.pdf) |
+| **Week 2** | **Advanced Testing & Core Remediation** | Implemented input validation (`validator`), password hashing (`bcrypt`), stateless `JWT` authentication, HTTP security headers (`Helmet.js`), and secure error handling. | [📄 MD](./docs/Week2_Report.md) \| [📕 PDF](./docs/Week2_Report.pdf) |
+| **Week 3** | **Validation, Logging & Reporting** | Conducted network/service enumeration (`Nmap`), manual browser/API validation, centralized security event logging (`Winston`), and authored the baseline `Security_Checklist.md`. | [📄 MD](./docs/Week3_Report.md) \| [📕 PDF](./docs/Week3_Report.pdf) |
+| **Week 4** | **Intrusion Detection & API Hardening** | Integrated **Fail2Ban** with Winston audit logs for automated brute-force IP banning; hardened APIs with strict `CORS` policies, `Helmet`, and `express-rate-limit`. | [📄 MD](./docs/Week4_Report.md) \| [📕 PDF](./docs/Week4_Report.pdf) |
+| **Week 5** | **XSS, NoSQLi & CSP Remediation** | Mitigated stored/reflected XSS via output encoding and `DOMPurify`; neutralized NoSQL injection using `mongo-sanitize`; enforced strict Content Security Policy (CSP) rules. | [📄 MD](./docs/Week5_Report.md) \| [📕 PDF](./docs/Week5_Report.pdf) |
+| **Week 6** | **Final Audit & Secure Deployment** | Executed host/dependency audits (`npm audit`, `Lynis`), containerized the app with a non-root least-privilege `Dockerfile`, scanned images with `Trivy`, and verified all mitigations. | [📄 MD](./docs/Week6_Report.md) \| [📕 PDF](./docs/Week6_Report.pdf) |
+
+---
+
+## 🛠️ Tools & Security Stack
+
+| Category | Tools & Technologies Utilized |
+| :--- | :--- |
+| **Vulnerability Scanning & Pentesting** | **OWASP ZAP** (Automated DAST scanning), **Burp Suite** (Request tampering & Repeater injection), **Nmap** (Port/service enumeration), **Browser DevTools** (Client-side XSS/CSP inspection), **MongoDB Shell** (Schema & data integrity analysis) |
+| **Authentication & Cryptography** | **bcrypt** (Salted password hashing), **JWT (JSON Web Tokens)** (Stateless session & token authentication) |
+| **Input Validation & Sanitization** | **validator**, **express-validator**, **mongo-sanitize** (NoSQLi prevention), **DOMPurify** (XSS sanitization) |
+| **API Hardening & HTTP Security** | **Helmet.js** (Secure HTTP response headers & CSP), **express-rate-limit** (Brute-force & DoS throttling), **CORS** (Origin restriction) |
+| **Monitoring & Intrusion Prevention** | **Winston** (Structured authentication & security audit logging), **Fail2Ban** (Automated log parsing & IP banning) |
+| **DevSecOps, Auditing & Containers** | **Docker** (Non-root, minimal containerization), **Trivy** (Container image vulnerability scanning), **Lynis** (Host-based security auditing), **npm audit** (Dependency vulnerability analysis) |
+
+---
+
+## 📂 Repository Structure
+
+> **Note:** To keep the directory tree concise, the 65+ evidence images inside `docs/screenshots/` and external packages inside `node_modules/` have been summarized below.
+
+```text
+User-Management-Security-Assessment/
+│
+├── awards/
+│   └── certificate of completion.jpg        → Official Program Certificate of Completion
+│
+├── docs/
+│   ├── screenshots/                         → [65+ PNGs: ZAP/Burp/Nmap scans, XSS/NoSQLi PoCs, bcrypt/JWT/Helmet/Fail2Ban/Docker verification]
+│   ├── Week1_Report.md / .pdf               → Basic Vulnerability Assessment Report
+│   ├── Week2_Report.md / .pdf               → Advanced Vulnerability Testing & Remediation Report
+│   ├── Week3_Report.md / .pdf               → Final Assessment, Logging & Checklist Report
+│   ├── Week4_Report.md / .pdf               → Intrusion Detection, Logging & API Hardening Report
+│   ├── Week5_Report.md / .pdf               → XSS, NoSQL Injection & CSP Remediation Report
+│   └── Week6_Report.md / .pdf               → Final Audit, Dockerization & Secure Deployment Report
+│
+├── User-Management-System-CRUD/             → Hardened Target Express.js + MongoDB Application
+│   ├── node_modules/                        → [Application dependencies & security packages]
+│   ├── server/
+│   │   ├── database/connection.js           → MongoDB connection handler
+│   │   ├── model/user.js                    → Mongoose user schema & model
+│   │   └── route/router.js                  → Application routes & hardened API endpoints
+│   ├── utils/
+│   │   └── logger.js                        → Winston security & authentication logger
+│   ├── views/
+│   │   ├── index.ejs                        → Main dashboard view
+│   │   ├── login.ejs                        → Hardened user login view
+│   │   ├── profile.ejs                      → Authenticated user profile view
+│   │   └── signup.ejs                       → Hardened user registration view
+│   ├── .dockerignore                        → Docker build exclusions
+│   ├── config.env                           → Environment configuration variables
+│   ├── Dockerfile                           → Hardened, non-root production container definition
+│   ├── package.json / package-lock.json     → Node.js dependencies & scripts
+│   ├── README.md                            → Application-level documentation
+│   ├── security.log                         → Application-level security event log
+│   └── server.js                            → Main Express server entry point
+│
+├── LICENSE                                  → MIT License
+├── README.md                                → Portfolio overview & assessment documentation
+├── Security_Checklist.md                    → Comprehensive application security verification checklist
+└── security.log                             → Root security audit log trail
+```
+
+---
+
+## 🚀 Setup & Deployment Instructions
+
+Follow these steps to deploy the hardened application in your local environment:
 
 1. **Clone the repository:**
    ```bash
    git clone https://github.com/RazaJavaid2004/User-Management-Security-Assessment.git
-   cd user-management-security-assessment/User-Management-System-CRUD
+   cd User-Management-Security-Assessment/User-Management-System-CRUD
    ```
 
 2. **Install dependencies:**
@@ -36,113 +144,11 @@ Follow these steps to deploy the application in your local environment:
 
 ---
 
-
-## Tools and Technologies
-
-The following tools and technologies were utilized throughout the multi-week security assessment:
-
-* **Browser Developer Tools** – Manual inspection and validation testing for client-side vulnerabilities (XSS, CSP, etc.)
-* **MongoDB Shell** – Database inspection, schema analysis, and data integrity verification
-* **OWASP ZAP** – Automated vulnerability scanning and HTTP traffic analysis
-* **Nmap** – Port scanning and service enumeration for penetration testing
-* **Burp Suite** – Manual injection, request tampering, and header analysis
-* **Winston** – Logging and monitoring of authentication attempts and errors
-* **Helmet.js** – Secure HTTP headers to mitigate common attacks
-* **Fail2Ban** – Intrusion detection and automated banning of brute-force attempts
-* **express-rate-limit** – API rate limiting to block brute-force and abuse
-* **CORS** – Restricting allowed origins for API endpoints
-* **lynis** – Host-based security auditing
-* **Trivy** – Container vulnerability scanning
-* **Docker** – Containerization and secure deployment
-* **bcrypt** – Secure password hashing
-* **JWT** – Token-based authentication
-* **validator, express-validator, mongo-sanitize, dompurify** – Input validation and sanitization
+## 📜 License
+This project is licensed under the **MIT License** — see the [LICENSE](LICENSE) file for details.
 
 ---
 
-
-## Documentation and Reports
-
-Detailed assessment findings and comprehensive documentation are maintained in the `docs/` directory. Supporting evidence and screenshots are located in `docs/screenshots/`.
-
-* [Week 1 – Basic Vulnerability Assessment](./docs/Week1_Report.md)
-* [Week 2 – Advanced Vulnerability Testing](./docs/Week2_Report.md)
-* [Week 3 – Final Assessment & Remediation](./docs/Week3_Report.md)
-* [Week 4 – Intrusion Detection, Logging & API Hardening](./docs/Week4_Report.md)
-* [Week 5 – XSS, NoSQL Injection & CSP Remediation](./docs/Week5_Report.md)
-* [Week 6 – Final Audit & Secure Deployment](./docs/Week6_Report.md)
-
----
-
-
-## Weekly Findings & Remediation
-
-### Week 1: Initial Assessment
-* **Findings:**
-   - Cross-Site Scripting (XSS) via unsanitized input
-   - NoSQL Injection in authentication
-   - Insecure credential storage (plaintext passwords)
-   - Security misconfigurations (missing CSP, anti-clickjacking, info disclosure)
-
-### Week 2: Remediation
-* **Actions:**
-   - Input validation & sanitization (`validator`)
-   - Password hashing with `bcrypt`
-   - JWT-based authentication
-   - Security headers with `Helmet.js`
-   - Error handling improvements
-
-### Week 3: Validation & Reporting
-* **Actions:**
-   - Penetration testing (Nmap, browser, API)
-   - Logging & monitoring with Winston
-   - Security checklist documentation
-
-### Week 4: Intrusion Detection & API Hardening
-* **Actions:**
-   - Integrated Fail2Ban with Winston logs for brute-force detection and automated banning
-   - Hardened API with CORS, Helmet, and rate limiting
-   - Validated protections via manual endpoint testing
-
-### Week 5: XSS, NoSQL Injection & CSP Remediation
-* **Actions:**
-   - Fixed stored XSS by output encoding and input sanitization (`dompurify`)
-   - Prevented NoSQL injection with `mongo-sanitize` and strict validation
-   - Hardened CSP to block inline scripts and restrict sources
-
-### Week 6: Final Audit & Secure Deployment
-* **Actions:**
-   - Automated dependency and system vulnerability scans (`npm audit`, `lynis`)
-   - Containerized app with Docker (least privilege, non-root, minimal base)
-   - Container vulnerability scanning with Trivy
-   - Final penetration testing and verification of all mitigations
-
----
-
-## Project Timeline
-
-| Phase      | Objectives                                                                 |
-|------------|----------------------------------------------------------------------------|
-| **Week 1** | Basic vulnerability assessment (XSS, NoSQL injection, weak password storage, misconfigurations) |
-| **Week 2** | Security fixes: input validation, password hashing, JWT authentication, Helmet headers |
-| **Week 3** | Penetration testing, logging setup, security checklist, final reporting     |
-| **Week 4** | Intrusion detection (Fail2Ban), API hardening (CORS, Helmet, rate limiting) |
-| **Week 5** | XSS, NoSQL injection, and CSP remediation                                  |
-| **Week 6** | Final audit, containerization, secure deployment, and production readiness  |
-
----
-
-
-## Summary
-
-This project demonstrates a **Full Security Lifecycle**:
-**Identify → Fix → Validate → Document → Harden → Deploy** ✅
-
-By combining manual and automated testing, layered security controls, and structured documentation, the User Management System has been hardened against a wide range of web application threats. The repository includes:
-
-- Evidence-driven reports for each phase (see `docs/`)
-- Structured logs and audit trails (Winston, Fail2Ban)
-- Security checklist and best practices (`Security_Checklist.md`)
-- Hardened, containerized deployment ready for production
-
-**Status:** Application is secured, audited, and production-ready.
+## 👤 Author
+**Muhammad Raza**  
+🔗 [GitHub Profile](https://github.com/RazaJavaid2004)
